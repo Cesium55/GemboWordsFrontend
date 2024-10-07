@@ -28,27 +28,32 @@ const routes = [
   {
     path: '/stats',
     name: 'statistics',
-    component: Statistics
+    component: Statistics,
+    meta: { requiresAuth: true }
   },
   {
     path: '/learn',
     name: 'Learn',
-    component: Learn
+    component: Learn,
+    meta: { requiresAuth: true }
   },
   {
     path: '/repeat',
     name: 'Repeat',
-    component: Repeat
+    component: Repeat,
+    meta: { requiresAuth: true }
   },
   {
     path: '/mixed',
     name: 'Mixed',
-    component: LearnRepeat
+    component: LearnRepeat,
+    meta: { requiresAuth: true }
   },
   {
     path: '/categories',
     name: 'Categories',
-    component: Categories
+    component: Categories,
+    meta: { requiresAuth: true }
   },
 ];
 
@@ -56,5 +61,22 @@ const router = createRouter({
   history: createWebHistory("/"),
   routes
 });
+
+
+// Глобальный навигационный гвард
+router.beforeEach((to, from, next) => {
+  // Проверяем, если у маршрута есть поле meta.requiresAuth
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // Проверяем наличие ключа в localStorage
+    if (localStorage.getItem('test_login')) {
+      next() // Ключ найден, доступ разрешён
+    } else {
+      next({ name: 'Login' }) // Ключ не найден, редирект на страницу входа
+    }
+  } else {
+    next() // Если страница не требует авторизации, пропускаем
+  }
+})
+
 
 export default router

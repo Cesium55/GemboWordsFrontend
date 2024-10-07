@@ -6,7 +6,6 @@ import { get_categories } from '@/utils/fake_data';
 const categories = get_categories()
 
 
-
 </script>
 
 

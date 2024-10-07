@@ -26,7 +26,15 @@ email_validator.newValidators([
   FieldValidator.isValidEmail
 ])
 
+function submition(e) {
+  e.preventDefault()
+  email_validator.validate()
+  password_validator.validate()
 
+  if(email_validator.validate_status && password_validator.validate_status){
+    localStorage.setItem('test_login', 'dota');
+  }
+}
 
 </script>
 
@@ -36,7 +44,7 @@ email_validator.newValidators([
     <div class="sign_cont">
       <h1 class="form_title">Sign in</h1>
       <div class="sign_form_cont">
-        <form action="" method="get">
+        <form action="" method="get" @submit="(e) => submition(e)">
 
           <FormLine ident="email" type="email" :error=email_error @update="(v) => { email = v; email_validator.hide() }"
             @blur="() => email_validator.validate()">Email
@@ -47,12 +55,14 @@ email_validator.newValidators([
           </FormLine>
 
           <div class="form_element">
-            <SubmitButton >
+            <SubmitButton>
               Log in
             </SubmitButton>
           </div>
           <p>
-            Do not have an account yet? You can sign up <span> <Link to="register">here</Link> </span>
+            Do not have an account yet? You can sign up <span>
+              <Link to="register">here</Link>
+            </span>
           </p>
         </form>
       </div>

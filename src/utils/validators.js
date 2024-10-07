@@ -61,6 +61,9 @@ class FieldValidator {
         }
         // console.log(errors)
         this.setErrors(errors)
+
+        if (errors.length > 0) this.validate_status = false
+        else this.validate_status = true
     }
 
     hide(){
