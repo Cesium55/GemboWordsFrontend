@@ -4,26 +4,30 @@ import { ref } from 'vue';
 import WordButtons from '@/components/WordButtons.vue';
 import WordPanel from '@/components/WordPanel.vue';
 import Test from '@/components/Test.vue';
+import { get_words } from '@/utils/fake_data';
 
-const word_arr = ref(
-    [{
-        ru: "яблоко",
-        eng: "apple",
-        eng_examples: ["I have two apples", "I like apples and oranges"],
-        ru_examples: ["У меня есть два яблока", "Мне нравятся яблоки и оранжевые"],
-        categories: ["Fruits", "A0"],
-        transcription: "ˈæpl"
-    },
-    {
-        ru: "лев",
-        eng: "lion",
-        eng_examples: ["Lion is a king of all animals", "pervii skill i tretii blat"],
-        ru_examples: ["Лев король всех зверей", "первый скилл и трейтий блядь"],
-        categories: ["Animals", "A0"],
-        transcription: "ˈlaɪən"
-    }
-    ]
-)
+
+// import fetch from '@/utils/fetches';
+
+// const word_arr = ref(
+//     [{
+//         ru: "яблоко",
+//         eng: "apple",
+//         eng_examples: ["I have two apples", "I like apples and oranges"],
+//         ru_examples: ["У меня есть два яблока", "Мне нравятся яблоки и оранжевые"],
+//         categories: ["Fruits", "A0"],
+//         transcription: "ˈæpl"
+//     },
+//     {
+//         ru: "лев",
+//         eng: "lion",
+//         eng_examples: ["Lion is a king of all animals", "pervii skill i tretii blat"],
+//         ru_examples: ["Лев король всех зверей", "первый скилл и трейтий блядь"],
+//         categories: ["Animals", "A0"],
+//         transcription: "ˈlaɪən"
+//     }
+//     ]
+// )
 
 
 const word = ref({
@@ -36,6 +40,38 @@ const word = ref({
     transcription: "ˈæpl"
 })
 
+
+let words = get_words()
+// const url = 'http://185.193.137.147/test/words';
+// const url = ' http://127.0.0.1:8000/test/words';
+// fetch(url)
+//   .then(response => {
+//     if (!response.ok) {
+//       throw new Error('Network response was not ok ' + response.statusText);
+//     }
+//     return response.json(); // Преобразуем ответ в формат JSON
+//   })
+//   .then(data => {
+//     console.log(data); // Выводим данные в консоль
+//     words = data
+//   })
+//   .catch(error => {
+//     console.error('There was a problem with the fetch operation:', error); // Обработка ошибок
+//   });
+
+
+
+let index = -1
+
+function next_word(){
+    index++
+
+    if (index < words.length){
+        word.value = words[index]
+        // console.log(word.value)
+    }
+}
+
 </script>
 
 
@@ -43,7 +79,7 @@ const word = ref({
     <HomeCont learn_active>
 
         <div class="learn_screen">
-            <WordPanel state="0" :word_obj="word_arr[0]" new_word></WordPanel>
+            <WordPanel @next_word="next_word()" state="0" :word="word" new_word></WordPanel>
         </div>
 
     </HomeCont>

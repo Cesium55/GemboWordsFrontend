@@ -2,33 +2,34 @@
 import HomeCont from '@/components/HomeCont.vue';
 import WordPanel from '@/components/WordPanel.vue';
 import { ref } from 'vue';
+import { get_words } from '@/utils/fake_data';
 
 
-const word_arr = ref(
-    [
-    {
-        ru: "лев",
-        eng: "lion",
-        eng_examples: ["Lion is a king of all animals","Lion is a king of all animals","Lion is a king of all animals","Lion is a king of all animals","Lion is a king of all animals","Lion is a king of all animals","Lion is a king of all animals",
-            "Lion is a king of all animals", "pervii skill i tretii blat uui uiuig uiguig ugiugig ugiuig "],
-        ru_examples: ["Лев король всех зверей", "первый скилл и трейтий блядь"],
-        categories: ["Animals", "A0"],
-        transcription: "ˈlaɪən"
+let words = get_words()
+
+let index = 0
+const word = ref(words[index])
+function next_word() {
+    index++
+
+    if (index < words.length) {
+        word.value = words[index]
+        // console.log(word.value)
     }
-    ]
-)
+}
+
 </script>
 
 
 <template>
-<HomeCont repeat_active>
-    <div class="learn_screen">
-            <WordPanel state="0" :word_obj="word_arr[0]"></WordPanel>
-    </div>
-</HomeCont>
+    <HomeCont repeat_active>
+
+        <div class="learn_screen">
+            <WordPanel @next_word="next_word()" state="0" :word="word"></WordPanel>
+        </div>
+
+    </HomeCont>
 </template>
 
 
-<style scoped>
-
-</style>
+<style scoped></style>

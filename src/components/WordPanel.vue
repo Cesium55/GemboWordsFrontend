@@ -10,7 +10,7 @@ const props = defineProps({
     state: integer,
     new_word: Boolean,
     ru_first: Boolean,
-    word_obj: Object
+    word: Object
 })
 
 const emits = defineEmits(["next_word"])
@@ -22,36 +22,35 @@ const panel_state = ref(props.state)
 2 - word with everything and 2 buttons
 */
 
-const word = ref(props.word_obj)
+// const word = ref(props.word_obj)
 /*
 {
     ru: string,
     eng: string,
-    eng_examples: List[string],
-    ru_examples: List[string],
-    categories: List[string],
+    examples: List[Example]
+    categories: List[Category],
     transcription: string
 }
 */
 
 function onUpClicked(e){
-    console.log(1)
+    // console.log(1)
     panel_state.value = 2
 }
 function onDownClicked(e){
-    console.log(2)
+    // console.log(2)
     panel_state.value = 1
 }
 function onLeftClicked(e){
-    console.log(3)
+    // console.log(3)
     panel_state.value = 0
-    emit("next_word")
+    emits("next_word")
     
 }
 
 function keyClicked(e){
-    console.log(4)
-    console.log(e.key == "ArrowUp")
+    // console.log(4)
+    // console.log(e.key == "ArrowUp")
     if (e.key === 'ArrowDown') onDownClicked()
     if (e.key === 'ArrowUp') onUpClicked()
     if (e.key === 'ArrowLeft') onLeftClicked()
@@ -70,30 +69,29 @@ function keyClicked(e){
 
     <div class="word_cont_no_padding">
         <transition-group name="tanim">
-            <div class="top_info">
+            <div class="top_info" key="top_info">
                 <div class="categories">Categories:&nbsp;
-                    <div class="category" v-for="(c, index) in word.categories">{{ c }}<span
+                    <div class="category" v-for="(c, index) in word.categories">{{ c.name }}<span
                             v-if="index < word.categories.length - 1">,&nbsp;</span></div>
                 </div>
                 <div class="word_repetition">
                     {{ new_word ? "New word" : "Repeating word" }}
                 </div>
             </div>
-            <div class="word_cont">
+            <div class="word_cont" key="word_cont">
 
 
                 <div class="word_titles">
-                    <transition-group name="aanim">
                         <div class="eng_word_title_cont left_title_cont title_cont"
                             v-if="(!ru_first) || ([2].includes(panel_state))">
                             <div class="word_title">
-                                {{ word.eng }}
+                                {{ word.english }}
                             </div>
 
 
                             <div class="transcription">
                                 <div>[ {{ word.transcription }} ]</div>
-                                <IconButton @click="speak(word.eng)">
+                                <IconButton @click="speak(word.english)">
                                     <img src="@/assets/icons/dark/speak.svg" alt="say">
                                 </IconButton>
                             </div>
@@ -105,10 +103,9 @@ function keyClicked(e){
                         <div class="ru_word_title_cont right_title_cont title_cont"
                             v-if="(ru_first) || ([2].includes(panel_state))">
                             <div class="word_title">
-                                {{ word.ru }}
+                                {{ word.russian }}
                             </div>
                         </div>
-                    </transition-group>
 
                 </div>
 
@@ -148,19 +145,19 @@ function keyClicked(e){
                 </div> -->
 
                 <div class="examples" v-if="([1, 2].includes(panel_state))">
-                    <div class="example_pare" v-for="(ex, index) in word.eng_examples">
+                    <div class="example_pare" v-for="(ex, index) in word.examples">
 
                         <div class="example" v-if="(panel_state == 2) || ((panel_state == 1) && (!ru_first))">
-                            <IconButton @click="speak(ex)">
+                            <IconButton @click="speak(ex.english)">
                                     <img src="@/assets/icons/dark/speak.svg" alt="say">
                                 </IconButton>
                                 <div class="example_text">
-                                    {{ index + 1 }}) {{ ex }}
+                                    {{ index + 1 }}) {{ ex.english }}
                                 </div>
                         </div>
 
                         <div class="example" v-if="(panel_state == 2) || ((panel_state == 1) && (ru_first))">
-                            {{ index + 1 }}) {{ word.ru_examples[index] }}
+                            {{ index + 1 }}) {{ ex.russian }}
                         </div>
 
                     </div>

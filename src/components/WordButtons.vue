@@ -20,7 +20,7 @@ const emits = defineEmits([
     "show_clicked"
 ])
 
-console.log(props)
+// console.log(props)
 
 let button_count = 0;
 for (var value of [
