@@ -3,7 +3,6 @@ import HomeCont from '@/components/HomeCont.vue';
 import { ref } from 'vue';
 import WordButtons from '@/components/WordButtons.vue';
 import WordPanel from '@/components/WordPanel.vue';
-import Test from '@/components/Test.vue';
 import { get_words } from '@/utils/fake_data';
 
 
@@ -30,15 +29,7 @@ import { get_words } from '@/utils/fake_data';
 // )
 
 
-const word = ref({
-    ru: "яблоко",
-    eng: "apple",
-    eng_examples: [
-        "I have two apples", "I like apples and oranges"],
-    ru_examples: ["У меня есть два яблока", "Мне нравятся яблоки и оранжевые"],
-    categories: ["Fruits", "A0"],
-    transcription: "ˈæpl"
-})
+
 
 
 let words = get_words()
@@ -60,8 +51,11 @@ let words = get_words()
 //   });
 
 
+let index = 0
 
-let index = -1
+const word = ref(words[0])
+
+
 
 function next_word(){
     index++

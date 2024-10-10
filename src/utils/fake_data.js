@@ -382,4 +382,165 @@ const get_categories = () => {
     
 }
 
-export { get_words, get_categories }
+
+const get_wotd = (number = 0) => {
+    const words = [
+        {
+            english: "To defenestrate",
+            russian: "Выбросить из окна",
+            transcription: "[dɪˈfɛnɪstreɪt]",
+            defenition: "Act of throwing someone out of a window.",
+            examples: [
+                { russian: "Он был выброшен из окна.", english: "He was defenestrated." },
+                { russian: "Это старый способ решения споров.", english: "It’s an old way of settling disputes." }
+            ],
+            photo: null,
+            videos: [
+                { url: null, description: "История дефенестрации в политике." },
+                { url: null, description: "Как часто используется слово 'defenestrate'?" }
+            ]
+        },
+        {
+            english: "Flabbergasted",
+            russian: "Ошеломленный",
+            transcription: "ˈflæbəɡɑːstɪd",
+            defenition: "feeling shocked, usually because of something you were not expecting",
+            examples: [
+                { russian: "Я был ошеломлен его поведением.", english: "I was flabbergasted by his behavior." },
+                { russian: "Она была ошеломлена новостями.", english: "She was flabbergasted by the news." },
+                { russian: "Когда они объявили ее имя, победительница просто сидела, ошеломленная.", english: "When they announced her name, the winner just sat there, flabbergasted." },
+            ],
+            photo: "/pictures/Flab.webp",
+            videos: [
+                { url: "/videos/flabbergasted/0.mp4", description: "You, on the other hand, continue to be flabbergasted every time someone actually acts like a human being." },
+                { url: "/videos/flabbergasted/1.mp4", description: "Flabbergasted that motherfucker." },
+                { url: "/videos/flabbergasted/2.mp4", description: "Not flabbergasted." },
+                { url: "/videos/flabbergasted/3.mp4", description: "I was flabbergasted, sir." },
+                { url: "/videos/flabbergasted/4.mp4", description: "No, no, no, I'm not flabbergasted. " }
+            ]
+        },
+        {
+            english: "Jubilant",
+            russian: "Ликующий",
+            transcription: "[ˈdʒuːbɪlənt]",
+            defenition: "Feeling or expressing great joy.",
+            examples: [
+                { russian: "Толпа была ликующей.", english: "The crowd was jubilant." },
+                { russian: "Он был в ликующем настроении после победы.", english: "He was jubilant after the victory." }
+            ],
+            photo: null,
+            videos: [
+                { url: null, description: "Что значит быть 'jubilant'?" },
+                { url: null, description: "Ликующие моменты в истории." }
+            ]
+        },
+        {
+            english: "Tachyon",
+            russian: "Тахион",
+            transcription: "[ˈtækiɒn]",
+            defenition: "A hypothetical particle that travels faster than light.",
+            examples: [
+                { russian: "Тахионы могут двигаться быстрее света.", english: "Tachyons can move faster than light." },
+                { russian: "Тахионы — часть теории физики.", english: "Tachyons are part of physics theory." }
+            ],
+            photo: null,
+            videos: [
+                { url: null, description: "Что такое тахионы?" },
+                { url: null, description: "Мифы и реальность тахионов." }
+            ]
+        },
+        {
+            english: "Heisenbug",
+            russian: "Гейзенбаг",
+            transcription: "[ˈhaɪzənbʌɡ]",
+            defenition: "A software bug that seems to change its behavior when one attempts to study it.",
+            examples: [
+                { russian: "Это классический гейзенбаг, трудно отследить.", english: "It's a classic Heisenbug, hard to trace." },
+                { russian: "Гейзенбаг исчезает при отладке.", english: "The Heisenbug vanishes when debugging." }
+            ],
+            photo: null,
+            videos: [
+                { url: null, description: "Что такое гейзенбаг?" },
+                { url: null, description: "Причины появления гейзенбагов в программировании." }
+            ]
+        },
+        {
+            english: "Glamping",
+            russian: "Глэмпинг",
+            transcription: "[ˈɡlæmpɪŋ]",
+            defenition: "Luxury camping with amenities and comfort.",
+            examples: [
+                { russian: "Мы отправились на глэмпинг в горы.", english: "We went glamping in the mountains." },
+                { russian: "Глэмпинг стал популярным среди туристов.", english: "Glamping has become popular among tourists." }
+            ],
+            photo: null,
+            videos: [
+                { url: null, description: "Что такое глэмпинг?" },
+                { url: null, description: "Разница между глэмпингом и обычным кемпингом." }
+            ]
+        },
+        {
+            english: "Quixotic",
+            russian: "Идеалистический",
+            transcription: "[kwɪkˈsɒtɪk]",
+            defenition: "Exceedingly idealistic; unrealistic and impractical.",
+            examples: [
+                { russian: "Его план был слишком идеалистическим.", english: "His plan was too quixotic." },
+                { russian: "Он имел идеалистические представления о мире.", english: "He had quixotic views about the world." }
+            ],
+            photo: null,
+            videos: [
+                { url: null, description: "Что значит 'quixotic'?" },
+                { url: null, description: "Идеализм против реальности: quixotic подход." }
+            ]
+        },
+        {
+            english: "Zeitgeist",
+            russian: "Дух времени",
+            transcription: "[ˈzaɪtɡaɪst]",
+            defenition: "The defining spirit or mood of a particular period of history.",
+            examples: [
+                { russian: "Этот фильм уловил дух времени.", english: "This movie captured the zeitgeist." },
+                { russian: "Книга прекрасно отражает дух времени 60-х.", english: "The book reflects the zeitgeist of the 60s." }
+            ],
+            photo: null,
+            videos: [
+                { url: null, description: "Что такое zeitgeist?" },
+                { url: null, description: "Как дух времени влияет на культуру?" }
+            ]
+        },
+        {
+            english: "Luddite",
+            russian: "Луддит",
+            transcription: "[ˈlʌdaɪt]",
+            defenition: "A person opposed to new technology or ways of working.",
+            examples: [
+                { russian: "Он был луддитом и ненавидел технологические изменения.", english: "He was a luddite and hated technological changes." },
+                { russian: "Луддиты выступали против индустриализации.", english: "The Luddites opposed industrialization." }
+            ],
+            photo: null,
+            videos: [
+                { url: null, description: "История луддитов." },
+                { url: null, description: "Современные луддиты и их взгляды на технологии." }
+            ]
+        }
+    ];
+
+
+    return words[number % words.length]
+}
+
+/*
+{
+    english: String,
+    russian: String,
+    transcription: String,
+    defenition: String,
+    examples: Array<Example>, // Example : {russian: String, english: string}
+    photo: String, // url
+    videos: Array<Video>, // Video: {url: string, description: string}
+}
+*/
+
+
+export { get_words, get_categories, get_wotd }
