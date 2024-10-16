@@ -7,7 +7,7 @@ import Statistics from '@/pages/Statistics.vue';
 import Learn from '@/pages/Learn.vue';
 import Repeat from '@/pages/Repeat.vue';
 import Categories from '@/pages/Categories.vue';
-
+import Cookies from 'js-cookie'; // Импортируем js-cookie
 
 const routes = [
   {
@@ -62,21 +62,21 @@ const router = createRouter({
   routes
 });
 
-
 // Глобальный навигационный гвард
 router.beforeEach((to, from, next) => {
   // Проверяем, если у маршрута есть поле meta.requiresAuth
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    // Проверяем наличие ключа в localStorage
-    if (localStorage.getItem('test_login')) {
-      next() // Ключ найден, доступ разрешён
+    // Проверяем наличие токена в куках
+    const token = Cookies.get('jwt');
+    
+    if (token) {
+      next() // Токен найден, доступ разрешён
     } else {
-      next({ name: 'Login' }) // Ключ не найден, редирект на страницу входа
+      next({ name: 'Login' }) // Токен не найден, редирект на страницу входа
     }
   } else {
     next() // Если страница не требует авторизации, пропускаем
   }
 })
 
-
-export default router
+export default router;
