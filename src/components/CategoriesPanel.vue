@@ -3,6 +3,8 @@ import { integer } from '@vuelidate/validators';
 import { ref, onMounted } from 'vue';
 import WordButtons from './WordButtons.vue';
 import IconButton from './IconButton.vue';
+import { get_categories } from '@/utils/categories';
+import { select_categories } from '@/utils/category_select_change';
 
 
 const props = defineProps({
@@ -10,6 +12,17 @@ const props = defineProps({
 })
 
 
+// for (let i=0;i<categories.value.length;i++){
+//     if ca
+// }
+
+
+
+// onMounted(() => {
+//     const cats = get_categories()
+//     console.log("Categories:")
+//     console.log(cats)
+// })
 
 /*
 Category
@@ -36,6 +49,8 @@ function dropdown(n) {
     dropdown_states.value[n] = !dropdown_states.value[n]
 }
 
+
+
 </script>
 
 
@@ -51,20 +66,27 @@ function dropdown(n) {
 
                 <div class="category_line">
                     <div class="left_par_of_category_line">
-                        <div class="category_icon"><img src="@/assets/icons/dark/category.svg"></div>
-                        <div class="category_name">{{ category.name }}</div>
-                        <div class="dropdown_button">
+                        <div class="category_icon"><img class="category_icon_image"
+                                :src="category.picture ? `/icons/categories/${category.picture}.svg` : '/icons/dark/category.svg'">
+                        </div>
+                        <div class="category_name">
+
+
+                        <RouterLink :to="'/category/' + category.id">{{ category.name }}</RouterLink>
+                        </div>
+                        <!-- <div class="dropdown_button">
                             <IconButton @click="() => dropdown(index)">
                                 <img src="@/assets/icons/dark/arrow_down.svg" alt="dropdown">
                             </IconButton>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="right_par_of_category_line">
                         <div class="active_check">
                             <input class="active_checkbox" type="checkbox" :name="'c' + category.id + 'check'"
-                                :id="'c' + category.id + 'check'" :checked="index % 2">
-
+                                :id="'c' + category.id + 'check'" v-model="category.selected"
+                                @change="select_categories(category.id, category.selected)">
+                            <!--  :checked="category.selected" -->
                         </div>
                     </div>
                 </div>
@@ -126,7 +148,20 @@ function dropdown(n) {
 .category_name {
     font-size: 20px;
     margin-left: 10px;
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+
 }
+
+
+.category_name a{
+    color: white;
+    text-decoration: none;
+
+}
+
 
 
 .active_check {
@@ -173,13 +208,23 @@ function dropdown(n) {
     height: 100%;
 }
 
-.words_list{
+.words_list {
     margin-left: 30px;
 }
-.word_line{
+
+.word_line {
     margin-top: 5px;
     font-size: 18px;
     color: gray
 }
 
+.category_icon {
+    width: 40px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.category_icon_image {
+    max-width: 40px;
+}
 </style>

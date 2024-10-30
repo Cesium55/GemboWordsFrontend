@@ -1,9 +1,13 @@
 <script setup>
 import HomeCont from '@/components/HomeCont.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import WordButtons from '@/components/WordButtons.vue';
 import WordPanel from '@/components/WordPanel.vue';
 import { get_words } from '@/utils/fake_data';
+import { get_new_words } from '@/utils/get_words';
+import Link from '@/components/Link.vue';
+
+import { start_learning, already_know } from '@/utils/gembow';
 
 
 // import fetch from '@/utils/fetches';
@@ -28,43 +32,39 @@ import { get_words } from '@/utils/fake_data';
 //     ]
 // )
 
-
-
-
-
-let words = get_words()
-// const url = 'http://185.193.137.147/test/words';
-// const url = ' http://127.0.0.1:8000/test/words';
-// fetch(url)
-//   .then(response => {
-//     if (!response.ok) {
-//       throw new Error('Network response was not ok ' + response.statusText);
-//     }
-//     return response.json(); // Преобразуем ответ в формат JSON
-//   })
-//   .then(data => {
-//     console.log(data); // Выводим данные в консоль
-//     words = data
-//   })
-//   .catch(error => {
-//     console.error('There was a problem with the fetch operation:', error); // Обработка ошибок
-//   });
-
-
+let words = []
 let index = 0
+const word = ref(false)
 
-const word = ref(words[0])
+onMounted(async () => {
+    words = await get_new_words()
+    console.log(words)
 
+    if (words.length) {
+        word.value = words[0]
+    }
 
+})
 
-function next_word(){
+const next_word = async () => {
     index++
-
-    if (index < words.length){
+    console.log(`index: ${index}\nlength: ${words.length}`)
+    if (index < words.length) {
         word.value = words[index]
-        // console.log(word.value)
+    } else if (index == words.length) {
+        console.log(words)
+        const new_words = await get_new_words()
+        if (new_words) {
+            words.push(...new_words)
+            word.value = words[index]
+        }
+        else {
+            word.value = false
+        }
     }
 }
+
+
 
 </script>
 
@@ -73,7 +73,21 @@ function next_word(){
     <HomeCont learn_active>
 
         <div class="learn_screen">
-            <WordPanel @next_word="next_word()" state="0" :word="word" new_word></WordPanel>
+            <WordPanel @learn_clicked="async () => { await start_learning(word.id); await next_word() }"
+                @known_clicked="async () => { await already_know(word.id); await next_word() }" state="0" :word="word"
+                new_word>
+
+                <div class="warning_cont">
+                    <div class="warning_line">
+                        No words to learn
+                    </div>
+                    <div class="warning_line">
+                        Please select some new categories
+                        <Link to="categories">here</Link>
+                    </div>
+                </div>
+
+            </WordPanel>
         </div>
 
     </HomeCont>
@@ -102,12 +116,12 @@ function next_word(){
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
+
 }
 
 .word_cont {
     padding: 20px;
-    height:100%
+    height: 100%
 }
 
 .word_titles {
@@ -140,7 +154,7 @@ function next_word(){
     color: rgb(200, 200, 200)
 }
 
-.example_titles{
+.example_titles {
     display: flex;
     justify-content: space-between;
     padding-right: 50px;
@@ -159,7 +173,7 @@ function next_word(){
 
 }
 
-.example_list_cont{
+.example_list_cont {
     width: 50%;
 }
 
@@ -175,5 +189,13 @@ function next_word(){
     font-size: 25px;
     color: #27a82e;
     width: 50%;
+}
+
+.warning_cont {
+    padding: 30px;
+}
+
+.warning_line {
+    font-size: 25px;
 }
 </style>

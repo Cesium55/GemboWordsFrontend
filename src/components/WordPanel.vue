@@ -4,6 +4,7 @@ import { ref, onMounted } from 'vue';
 import WordButtons from './WordButtons.vue';
 import IconButton from './IconButton.vue';
 import speak from '@/utils/speak';
+import { get_new_words } from '@/utils/get_words';
 
 
 const props = defineProps({
@@ -13,7 +14,14 @@ const props = defineProps({
     word: Object
 })
 
-const emits = defineEmits(["next_word"])
+const emits = defineEmits([
+    "next_word",
+    "learn_clicked",
+    "known_clicked",
+    "remember_clicked",
+    "repeat_clicked",
+    "example_clicked",
+    "show_clicked"])
 
 const panel_state = ref(props.state)
 /*
@@ -33,31 +41,43 @@ const panel_state = ref(props.state)
 }
 */
 
-function onUpClicked(e){
+function onUpClicked(e) {
     // console.log(1)
     panel_state.value = 2
 }
-function onDownClicked(e){
+function onDownClicked(e) {
     // console.log(2)
-    panel_state.value = 1
+    if (panel_state.value != 2) {
+        panel_state.value = 1
+    }
 }
-function onLeftClicked(e){
+function onLeftClicked(e) {
     // console.log(3)
     panel_state.value = 0
-    emits("next_word")
-    
+    if (props["new_word"]){
+        emits("known_clicked")
+    }
 }
 
-function keyClicked(e){
+function onRightClicked(e){
+    panel_state.value = 0
+    if (props["new_word"]){
+        emits("learn_clicked")
+    }
+}
+
+
+function keyClicked(e) {
     // console.log(4)
     // console.log(e.key == "ArrowUp")
     if (e.key === 'ArrowDown') onDownClicked()
     if (e.key === 'ArrowUp') onUpClicked()
     if (e.key === 'ArrowLeft') onLeftClicked()
+    if (e.key === 'ArrowRight') onRightClicked()
 }
 
 
-    window.addEventListener('keydown', (e) => keyClicked(e));
+window.addEventListener('keyup', (e) => keyClicked(e));
 
 
 
@@ -66,8 +86,14 @@ function keyClicked(e){
 
 
 <template>
+    <div class="word_cont_no_padding" v-if="!word">
 
-    <div class="word_cont_no_padding">
+        <slot>
+            No words here
+        </slot>
+
+    </div>
+    <div class="word_cont_no_padding" v-if="word">
         <transition-group name="tanim">
             <div class="top_info" key="top_info">
                 <div class="categories">Categories:&nbsp;
@@ -82,30 +108,30 @@ function keyClicked(e){
 
 
                 <div class="word_titles">
-                        <div class="eng_word_title_cont left_title_cont title_cont"
-                            v-if="(!ru_first) || ([2].includes(panel_state))">
-                            <div class="word_title">
-                                {{ word.english }}
-                            </div>
-
-
-                            <div class="transcription">
-                                <div>[ {{ word.transcription }} ]</div>
-                                <IconButton @click="speak(word.english)">
-                                    <img src="@/assets/icons/dark/speak.svg" alt="say">
-                                </IconButton>
-                            </div>
-
+                    <div class="eng_word_title_cont left_title_cont title_cont"
+                        v-if="(!ru_first) || ([2].includes(panel_state))">
+                        <div class="word_title">
+                            {{ word.english }}
                         </div>
 
-                        <div class="fake" v-if="panel_state == 2"></div>
 
-                        <div class="ru_word_title_cont right_title_cont title_cont"
-                            v-if="(ru_first) || ([2].includes(panel_state))">
-                            <div class="word_title">
-                                {{ word.russian }}
-                            </div>
+                        <div class="transcription">
+                            <div>[ {{ word.transcription }} ]</div>
+                            <IconButton @click="speak(word.english)">
+                                <img src="@/assets/icons/dark/speak.svg" alt="say">
+                            </IconButton>
                         </div>
+
+                    </div>
+
+                    <div class="fake" v-if="panel_state == 2"></div>
+
+                    <div class="ru_word_title_cont right_title_cont title_cont"
+                        v-if="(ru_first) || ([2].includes(panel_state))">
+                        <div class="word_title">
+                            {{ word.russian }}
+                        </div>
+                    </div>
 
                 </div>
 
@@ -149,11 +175,11 @@ function keyClicked(e){
 
                         <div class="example" v-if="(panel_state == 2) || ((panel_state == 1) && (!ru_first))">
                             <IconButton @click="speak(ex.english)">
-                                    <img src="@/assets/icons/dark/speak.svg" alt="say">
-                                </IconButton>
-                                <div class="example_text">
-                                    {{ index + 1 }}) {{ ex.english }}
-                                </div>
+                                <img src="@/assets/icons/dark/speak.svg" alt="say">
+                            </IconButton>
+                            <div class="example_text">
+                                {{ index + 1 }}) {{ ex.english }}
+                            </div>
                         </div>
 
                         <div class="example" v-if="(panel_state == 2) || ((panel_state == 1) && (ru_first))">
@@ -169,14 +195,16 @@ function keyClicked(e){
 
         </transition-group>
 
-            <WordButtons :learn="new_word" :example="panel_state == 0" :known="new_word" :remember="!new_word"
-                :repeat="!new_word" :show="panel_state != 2" @example_clicked="panel_state = 1"
-                @show_clicked="panel_state = 2" @known_clicked="panel_state = 0;$emit('next_word')" @remember_clicked="panel_state = 0">
-            </WordButtons>
+        <WordButtons :learn="new_word" :example="panel_state == 0" :known="new_word" :remember="!new_word"
+            :repeat="!new_word" :show="panel_state != 2" @example_clicked="panel_state = 1"
+            @show_clicked="panel_state = 2" @known_clicked="panel_state = 0; $emit('known_clicked')"
+            @remember_clicked="panel_state = 0; $emit('remember_clicked')" @learn_clicked="$emit('learn_clicked')"
+            @repeat_clicked="panel_state = 0; $emit('repeat_clicked')">
+        </WordButtons>
 
-            <!-- <WordButtons learn example known show>
+        <!-- <WordButtons learn example known show>
         </WordButtons> -->
-        
+
     </div>
 </template>
 
@@ -266,15 +294,17 @@ function keyClicked(e){
     padding-left: 50px; */
 
     max-height: 200px;
-    overflow: auto; 
+    overflow: auto;
 
 }
-.example_pare{
+
+.example_pare {
     display: flex;
     justify-content: space-between;
     padding-right: 50px;
     padding-left: 50px;
 }
+
 .example_list_cont {
     width: 50%;
 }
@@ -299,6 +329,10 @@ function keyClicked(e){
     font-size: 25px;
     color: #27a82e;
     width: 50%;
+}
+
+.warning_info {
+    padding: 20px;
 }
 
 

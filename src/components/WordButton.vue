@@ -13,11 +13,7 @@ const emits = defineEmits(["click", "up", "down", "left", "right"])
 
 <template>
 
-    <button :class="'word_button ' + button_count_class_name"  @click="$emit('click')"
-    @keyup="$emit('up')"
-    @click.down="$emit('down')"
-    @click.left="$emit('left')"
-    @click.right="$emit('right')"> 
+    <button :class="'word_button ' + button_count_class_name"  @click="$emit('click')"> 
         <slot>¡WORD BUTTON!</slot>
     </button>
 

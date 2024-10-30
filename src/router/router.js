@@ -7,6 +7,7 @@ import Statistics from '@/pages/Statistics.vue';
 import Learn from '@/pages/Learn.vue';
 import Repeat from '@/pages/Repeat.vue';
 import Categories from '@/pages/Categories.vue';
+import Category from '@/pages/Category.vue';
 import Cookies from 'js-cookie'; // Импортируем js-cookie
 
 const routes = [
@@ -53,6 +54,13 @@ const routes = [
     path: '/categories',
     name: 'Categories',
     component: Categories,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/category/:category_id',
+    name: 'Category',
+    component: Category,
+    props: true,
     meta: { requiresAuth: true }
   },
 ];
