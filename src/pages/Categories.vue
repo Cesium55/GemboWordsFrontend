@@ -8,26 +8,31 @@ import { onMounted, ref } from 'vue';
 
 
 const categories = ref([])
+const my_cats = ref(false)
 
 onMounted(async () => {
-    categories.value = await get_categories()
-    console.log("Categories:")
-    categories.value.sort((x, y) => y["sort_order"] - x["sort_order"])
-    console.log(categories.value)
+
+    const cats = await get_categories() || []
+    if (cats.length) {
+        cats.sort((x, y) => y["sort_order"] - x["sort_order"])
+        categories.value = cats.filter((x) => { return x.owner_id == null })
+        my_cats.value = cats.filter((x) => { return x.owner_id != null })
+    }
+    // console.log(my_cats)
+
+    // console.log(categories.value)
 })
 
 </script>
 
 
 <template>
-<HomeCont cats_active>
-    <div class="learn_screen">
-        <CategoriesPanel :categories="categories"/>
-    </div>
-</HomeCont>
+    <HomeCont cats_active>
+        <div class="learn_screen">
+            <CategoriesPanel :categories="categories" :my_categories="my_cats" />
+        </div>
+    </HomeCont>
 </template>
 
 
-<style scoped>
-
-</style>
+<style scoped></style>

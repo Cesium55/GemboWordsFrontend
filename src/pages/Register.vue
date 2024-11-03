@@ -8,6 +8,8 @@ import Link from "@/components/Link.vue";
 import { useAuth } from "@/utils/register";
 import { useRouter } from "vue-router";
 
+import { LocalizationManager } from "@/utils/localization_manager";
+
 const { register, isLoading, error } = useAuth();
 const router = useRouter()
 const server_error = ref("")
@@ -44,8 +46,9 @@ const handleRegister = async () => {
 
   email_validator.validate()
   password_validator.validate()
+  password2_validator.validate()
 
-  if (email_validator.validate_status && password_validator.validate_status) {
+  if (email_validator.validate_status && password_validator.validate_status && password2_validator.validate_status) {
     // localStorage.setItem('test_login', 'dota');
 
     const result = await register(email.value, password.value);
@@ -60,11 +63,7 @@ const handleRegister = async () => {
       server_error.value = result["detail"]
       console.log('ne Успешный вход', result);
     }
-
-
   }
-
-
 };
 
 
@@ -75,7 +74,7 @@ const handleRegister = async () => {
 
   <div class="out_center_cont">
     <div class="sign_cont">
-      <h1 class="form_title">Sign up</h1>
+      <h1 class="form_title">{{ LocalizationManager.get_string("reg_title") }}</h1>
       <div class="server_error" v-if="server_error">
         {{ server_error }}
       </div>
@@ -83,23 +82,23 @@ const handleRegister = async () => {
         <form action="" method="post" @submit.prevent="handleRegister">
 
           <FormLine ident="email" type="email" :error=email_error @update="(v) => { email = v; email_validator.hide() }"
-            @blur="() => email_validator.validate()">Email
+            @blur="() => email_validator.validate()">{{ LocalizationManager.get_string("Email") }}
           </FormLine>
 
           <FormLine ident="password" type="password" :error=password_error @blur="() => password_validator.validate()"
-            @update="(v) => { password = v; password_validator.hide() }">Password
+            @update="(v) => { password = v; password_validator.hide() }">{{ LocalizationManager.get_string("Pswd") }}
           </FormLine>
 
           <FormLine ident="password2" type="password" :error=password2_error
             @blur="() => password2_validator.validate()" @update="(v) => { password2 = v; password2_validator.hide() }">
-            Password again
+            {{ LocalizationManager.get_string("reg_pass2") }}
           </FormLine>
 
 
 
           <div class="form_element">
             <SubmitButton>
-              Register
+              {{ LocalizationManager.get_string("reg_btn") }}
             </SubmitButton>
           </div>
 
@@ -108,8 +107,8 @@ const handleRegister = async () => {
         </form>
 
         <p>
-          Do not have an account yet? You can sign up <span>
-            <Link to="login">here</Link>
+          {{ LocalizationManager.get_string("reg_login_ref") }} <span>
+            <Link to="login">{{ LocalizationManager.get_string("here") }}</Link>
           </span>
         </p>
       </div>

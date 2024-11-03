@@ -5,7 +5,11 @@ import WordButtons from './WordButtons.vue';
 import IconButton from './IconButton.vue';
 import speak from '@/utils/speak';
 import { get_new_words } from '@/utils/get_words';
+import { formatBold, formatClear } from '@/utils/formaters';
+import { LocalizationManager } from '@/utils/localization_manager';
 
+
+const theme = localStorage.getItem('theme') || 'light';
 
 const props = defineProps({
     state: integer,
@@ -54,14 +58,14 @@ function onDownClicked(e) {
 function onLeftClicked(e) {
     // console.log(3)
     panel_state.value = 0
-    if (props["new_word"]){
+    if (props["new_word"]) {
         emits("known_clicked")
     }
 }
 
-function onRightClicked(e){
+function onRightClicked(e) {
     panel_state.value = 0
-    if (props["new_word"]){
+    if (props["new_word"]) {
         emits("learn_clicked")
     }
 }
@@ -96,12 +100,10 @@ window.addEventListener('keyup', (e) => keyClicked(e));
     <div class="word_cont_no_padding" v-if="word">
         <transition-group name="tanim">
             <div class="top_info" key="top_info">
-                <div class="categories">Categories:&nbsp;
-                    <div class="category" v-for="(c, index) in word.categories">{{ c.name }}<span
-                            v-if="index < word.categories.length - 1">,&nbsp;</span></div>
+                <div class="categories">{{ LocalizationManager.get_string("word_categories") }}: {{ word.categories.map((x) =>x.name).join(", ") }}
                 </div>
                 <div class="word_repetition">
-                    {{ new_word ? "New word" : "Repeating word" }}
+                    {{ new_word ? LocalizationManager.get_string("word_new_word") : LocalizationManager.get_string("word_repeat") }}
                 </div>
             </div>
             <div class="word_cont" key="word_cont">
@@ -117,8 +119,8 @@ window.addEventListener('keyup', (e) => keyClicked(e));
 
                         <div class="transcription">
                             <div>[ {{ word.transcription }} ]</div>
-                            <IconButton @click="speak(word.english)">
-                                <img src="@/assets/icons/dark/speak.svg" alt="say">
+                            <IconButton @click="speak(formatClear(word.english))">
+                                <img :src="'/icons/' + theme +'/speak.svg'" alt="say">
                             </IconButton>
                         </div>
 
@@ -174,16 +176,18 @@ window.addEventListener('keyup', (e) => keyClicked(e));
                     <div class="example_pare" v-for="(ex, index) in word.examples">
 
                         <div class="example" v-if="(panel_state == 2) || ((panel_state == 1) && (!ru_first))">
-                            <IconButton @click="speak(ex.english)">
-                                <img src="@/assets/icons/dark/speak.svg" alt="say">
+                            <IconButton @click="speak(formatClear(ex.english))">
+                                <img :src="'/icons/' + theme +'/speak.svg'" alt="say">
                             </IconButton>
                             <div class="example_text">
-                                {{ index + 1 }}) {{ ex.english }}
+                                {{ index + 1 }}) <span v-html="formatBold(ex.english)"></span>
                             </div>
                         </div>
 
                         <div class="example" v-if="(panel_state == 2) || ((panel_state == 1) && (ru_first))">
-                            {{ index + 1 }}) {{ ex.russian }}
+                            <div class="example_text">
+                                {{ index + 1 }}) <span v-html="formatBold(ex.russian)"> </span>
+                            </div>
                         </div>
 
                     </div>
@@ -198,7 +202,7 @@ window.addEventListener('keyup', (e) => keyClicked(e));
         <WordButtons :learn="new_word" :example="panel_state == 0" :known="new_word" :remember="!new_word"
             :repeat="!new_word" :show="panel_state != 2" @example_clicked="panel_state = 1"
             @show_clicked="panel_state = 2" @known_clicked="panel_state = 0; $emit('known_clicked')"
-            @remember_clicked="panel_state = 0; $emit('remember_clicked')" @learn_clicked="$emit('learn_clicked')"
+            @remember_clicked="panel_state = 0; $emit('remember_clicked')" @learn_clicked="panel_state = 0;$emit('learn_clicked')"
             @repeat_clicked="panel_state = 0; $emit('repeat_clicked')">
         </WordButtons>
 
@@ -210,161 +214,5 @@ window.addEventListener('keyup', (e) => keyClicked(e));
 
 
 <style scoped>
-.word_cont_no_padding {
-    width: 800px;
-    min-height: 400px;
-    max-height: 600px;
-    border: 1px #27a82e solid;
-    border-radius: 20px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-}
-
-.top_info {
-    display: flex;
-    justify-content: space-between;
-}
-
-.word_repetition {
-    margin-top: 10px;
-    margin-right: 10px;
-    color: gray;
-}
-
-.categories {
-    display: flex;
-    margin-top: 10px;
-    margin-left: 10px;
-    color: gray;
-}
-
-.word_cont {
-    padding: 20px;
-    height: 100%
-}
-
-.word_titles {
-    display: flex;
-    justify-content: space-between;
-
-    /* padding-top: 10px; */
-    padding-left: 50px;
-    padding-right: 50px;
-}
-
-/* .title_cont {
-    margin-top: 20px;
-} */
-
-/* .left_title_cont {
-    margin-left: 50px;
-}
-
-.right_title_cont {
-    margin-right: 50px;
-} */
-
-.word_title {
-    font-size: 30px;
-}
-
-.transcription {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    color: rgb(200, 200, 200)
-}
-
-.example_titles {
-    display: flex;
-    justify-content: space-between;
-    padding-right: 50px;
-    padding-left: 50px;
-    margin-top: 20px;
-}
-
-.examples {
-    /* display: flex;
-    justify-content: space-between;
-    padding-right: 50px;
-    padding-left: 50px; */
-
-    max-height: 200px;
-    overflow: auto;
-
-}
-
-.example_pare {
-    display: flex;
-    justify-content: space-between;
-    padding-right: 50px;
-    padding-left: 50px;
-}
-
-.example_list_cont {
-    width: 50%;
-}
-
-.example {
-
-    display: flex;
-    justify-content: left;
-    align-items: center;
-
-    flex: 1;
-
-
-    padding-left: 10px;
-    font-size: 20px;
-    margin-top: 19px;
-    color: #e0e0e0;
-    overflow: auto;
-}
-
-.ex_title {
-    font-size: 25px;
-    color: #27a82e;
-    width: 50%;
-}
-
-.warning_info {
-    padding: 20px;
-}
-
-
-
-
-
-
-
-
-/* animations */
-
-/* .tanim-enter-active, */
-/* .move-leave-active {
-    transition: all 0.3s ease;
-} */
-
-/* .tanim-enter-from {
-    opacity: 0;
-    transform: translateY(-20px) 0.5s ease;
-}
-
-tanim-leave-to {
-    opacity: 0;
-    transform: translateY(20px) 0.5s ease;
-} */
-
-/* Анимация перемещений */
-.tanim-move {
-    transition: all 0.2s ease;
-}
-
-/* .aanim-move{
-    transition: all 0.1s ease;
-} */
 </style>

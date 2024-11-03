@@ -1,0 +1,285 @@
+
+:root{
+    --my_gray: #0f1014;
+}
+
+html{
+    background-color: #f1f0ff;
+    color: black;
+}
+
+
+
+.part_title {
+    color: #27a82e;
+}
+
+
+
+
+
+
+.header {
+
+    border-color: #27a82e;
+}
+
+
+.management_item:hover {
+    background-color: #e1e0ee;
+}
+
+
+.profile_panel {
+    background-color: white;
+    border-color: #27a82e;
+}
+
+.profile_panel_title {
+    border-bottom-color: #27a82e;
+}
+
+
+.profile_panel_logout button {
+    background-color: #27a82e;
+}
+
+
+
+.left_menu {
+
+    border-right-color: #27a82e;
+    border-top-color: #27a82e;
+    border-bottom-color: #27a82e;
+
+    background-color: white;
+}
+
+
+.icon_btn:hover {
+    background-color: #e1e0ee;
+}
+
+.link {
+    color: #27a82e;
+}
+
+.link:visited {
+    color: #27a82e;
+}
+
+
+
+.menu_item:hover {
+    background-color: rgb(220, 221, 225);
+}
+
+.active {
+    background-color: rgb(240, 241, 245);
+}
+
+.active:hover {
+    background-color: rgb(240, 241, 245);
+}
+
+.submitButton {
+    background-color: #27a82e;
+}
+
+
+
+#main_title {
+    color: #27a82e;
+}
+
+.word_button {
+
+    color: #0f1014;
+
+    border-top-color: #27a82e;
+    border-left-color: #27a82e;
+}
+
+
+
+.word_button:hover {
+    background-color: #e1e0ee;
+}
+
+
+.word_cont_no_padding {
+    border-color: #27a82e;
+    background-color: #fff;
+
+}
+
+
+
+.transcription {
+    color: rgb(200, 200, 200);
+}
+
+
+
+
+.ex_title {
+    color: #27a82e;
+}
+
+
+
+
+.category_cont_no_padding {
+    border-color: #27a82e;
+
+    background-color: white;
+
+}
+
+.part_title {
+    color: #27a82e;
+}
+
+
+.known::before {
+    background-color: #F7C815;
+}
+
+.learning::before {
+    background-color: #27a82e;
+}
+
+.learned::before {
+    background-color: #3498db;
+}
+
+.problematic::before {
+    background-color: #c10000;
+}
+
+.new::before {
+    background-color: rgb(200, 200, 200);
+}
+
+
+.home_panel {
+    border-color: #27a82e;
+    background-color: white;
+}
+
+.transcription {
+    color: black
+}
+
+.defenition {
+    color: var(--my_gray);
+}
+
+
+
+.ex_title {
+    color: #27a82e;
+}
+
+
+
+
+
+.transcription {
+    color: rgb(200, 200, 200)
+}
+
+
+.ex_title {
+    color: #27a82e;
+}
+
+.sign_cont {
+    border-color: #27a82e;
+    background-color: white;
+}
+
+
+.server_error {
+    background-color: rgba(255, 0, 0, 0.5);
+
+}
+
+
+
+
+
+
+.transcription {
+    color: gray
+}
+
+
+.example {
+    color: var(--my_gray);
+}
+
+.ex_title {
+    color: #27a82e;
+}
+
+
+.stats_cont {
+    border-color: #27a82e;
+    background-color: white;
+
+}
+
+
+
+.part_title {
+    color: #27a82e;
+}
+
+
+
+.known::before {
+    background-color: #F7C815;
+}
+
+.learning::before {
+    background-color: #27a82e;
+}
+
+.learned::before {
+    background-color: #3498db;
+}
+
+.problematic::before {
+    background-color: #c10000;
+}
+
+
+
+
+
+.part_title {
+    color: #27a82e;
+}
+
+
+.active_checkbox {
+    background-color: #ddd;
+    /* border: 1px solid #fff; Рамка */
+}
+
+.active_checkbox:checked {
+    background-color: #27a82e;
+}
+
+.category_name a{
+    color: var(--my_gray);
+}
+
+.word_left_top{
+    color: black;
+}
+
+.gray_warning{
+    color: #555555;
+}

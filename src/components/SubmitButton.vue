@@ -15,13 +15,5 @@ const emit = defineEmits(['submit'])
 
 <style lang="css" scoped>
 
-.submitButton {
-    color: white;
-    background-color: #27a82e;
-    padding: 10px 15px;
-    font-size: 20px;
-    border: none;
-    border-radius: 30px;
-}
 
 </style>

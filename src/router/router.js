@@ -9,6 +9,7 @@ import Repeat from '@/pages/Repeat.vue';
 import Categories from '@/pages/Categories.vue';
 import Category from '@/pages/Category.vue';
 import Cookies from 'js-cookie'; // Импортируем js-cookie
+import CreateWord from '@/pages/CreateWord.vue';
 
 const routes = [
   {
@@ -44,12 +45,12 @@ const routes = [
     component: Repeat,
     meta: { requiresAuth: true }
   },
-  {
-    path: '/mixed',
-    name: 'Mixed',
-    component: LearnRepeat,
-    meta: { requiresAuth: true }
-  },
+  // {
+  //   path: '/mixed',
+  //   name: 'Mixed',
+  //   component: LearnRepeat,
+  //   meta: { requiresAuth: true }
+  // },
   {
     path: '/categories',
     name: 'Categories',
@@ -60,6 +61,13 @@ const routes = [
     path: '/category/:category_id',
     name: 'Category',
     component: Category,
+    props: true,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/add_word/:category_id',
+    name: 'CreateWord',
+    component: CreateWord,
     props: true,
     meta: { requiresAuth: true }
   },

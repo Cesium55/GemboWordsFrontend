@@ -12,13 +12,5 @@ const props = defineProps({
 
 <style scoped>
 
-.link{
-    color: #27a82e;
-    text-decoration: none;
-}
-
-.link:visited{
-    color: #27a82e;
-}
 
 </style>

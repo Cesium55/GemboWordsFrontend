@@ -1,4 +1,4 @@
-
+import { LocalizationManager } from "./localization_manager"
 
 function class_by_relation(rel){
     if (rel==null || rel.state==0){
@@ -19,14 +19,14 @@ function class_by_relation(rel){
 
 function state_description_by_relation(rel){
     if (rel==null || rel.state==0){
-        return "New word"
+        return LocalizationManager.get_string("cat_new")
     }
 
     const descriptions = {
-        1: "Learning word",
-        2: "Learning word (problematic)",
-        3: "Word has been learned",
-        4: "Word already known"
+        1: LocalizationManager.get_string("cat_learn"),
+        2: LocalizationManager.get_string("cat_problematic"),
+        3: LocalizationManager.get_string("cat_learned"),
+        4: LocalizationManager.get_string("cat_known")
     }
 
     let desc = descriptions[rel.state]

@@ -1,5 +1,6 @@
 <script setup>
 import MenuItem from './MenuItem.vue';
+import { LocalizationManager } from '@/utils/localization_manager';
 
 const props = defineProps({
     home_active: Boolean,
@@ -9,6 +10,10 @@ const props = defineProps({
     lr_active: Boolean,
     cats_active: Boolean
 })
+const theme = localStorage.getItem('theme') || 'light';
+
+
+
 
 </script>
 
@@ -19,28 +24,28 @@ const props = defineProps({
         <div class="left_menu_cont">
             <div class="left_menu">
 
-                <MenuItem :active="home_active" text="Home" to="/">
-                <img class="menu_img" src="@/assets/icons/dark/home.svg" />
+                <MenuItem :active="home_active" :text="LocalizationManager.get_string('menu_home')" to="/">
+                <img class="menu_img" :src="'/icons/' + theme +'/home.svg'" />
                 </MenuItem>
 
-                <MenuItem :active="stats_active" text="Statistics" to="/stats">
-                <img class="menu_img" src="@/assets/icons/dark/stats.svg" />
+                <MenuItem :active="stats_active" :text="LocalizationManager.get_string('menu_stats')" to="/stats">
+                <img class="menu_img" :src="'/icons/' + theme +'/stats.svg'" />
                 </MenuItem>
 
-                <MenuItem :active="learn_active" text="Learn new words" to="/learn">
-                <img class="menu_img" src="@/assets/icons/dark/learn.svg" />
+                <MenuItem :active="learn_active" :text="LocalizationManager.get_string('menu_learn')" to="/learn">
+                <img class="menu_img" :src="'/icons/' + theme +'/learn.svg'" />
                 </MenuItem>
 
-                <MenuItem :active="repeat_active" text="Repeat words" to="/repeat">
-                <img class="menu_img" src="@/assets/icons/dark/repeat.svg" />
+                <MenuItem :active="repeat_active" :text="LocalizationManager.get_string('menu_repeat')" to="/repeat">
+                <img class="menu_img" :src="'/icons/' + theme +'/repeat.svg'" />
                 </MenuItem>
 
-                <MenuItem :active="lr_active" text="Learn & repeat" to="/mixed">
-                <img class="menu_img" src="@/assets/icons/dark/mixed.svg" />
-                </MenuItem>
+                <!-- <MenuItem :active="lr_active" :text="LocalizationManager.get_string('menu_learn_repeat')" to="/mixed">
+                <img class="menu_img" :src="'/icons/' + theme +'/mixed.svg'" />
+                </MenuItem> -->
 
-                <MenuItem :active="cats_active" text="Manage categories" to="/categories">
-                <img class="menu_img" src="@/assets/icons/dark/category.svg" />
+                <MenuItem :active="cats_active" :text="LocalizationManager.get_string('menu_cats')" to="/categories">
+                <img class="menu_img" :src="'/icons/' + theme +'/category.svg'" />
                 </MenuItem>
 
 
@@ -56,37 +61,5 @@ const props = defineProps({
 
 
 <style scoped>
-.home_cont {
-    height: 90vh;
-    display: flex;
-}
 
-.left_menu_cont {
-    width: 20vw;
-    height: 90vh;
-    /* border-right: 1px #27a82e solid; */
-    display: flex;
-    justify-content: left;
-    align-items: center;
-
-
-}
-
-.left_menu {
-    border-right: 1px #27a82e solid;
-    border-top: 1px #27a82e solid;
-    border-bottom: 1px #27a82e solid;
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-    overflow: hidden;
-}
-
-.content {
-    width: 80vw;
-    height: 90vh;
-}
-
-.menu_img {
-    width: 30px;
-}
 </style>

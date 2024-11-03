@@ -1,0 +1,324 @@
+:root{
+    --my_gray: #0f1014;
+}
+
+html{
+    color: white;
+    background-color: var(--my_gray);
+}
+
+.category_cont_no_padding {
+
+    
+
+    border-color: #27a82e;
+
+
+
+}
+
+.part_title {
+    color: #27a82e;
+}
+
+
+
+.active_checkbox {
+    background-color: #f0f0f0;
+    /* border: 1px solid #fff; Рамка */
+}
+
+.active_checkbox:checked {
+    background-color: #27a82e;
+}
+
+
+
+.header {
+
+    border-color: #27a82e;
+}
+
+
+.management_item:hover {
+    background-color: rgb(20, 21, 25);
+}
+
+
+.profile_panel {
+    background-color: rgb(20, 21, 25);
+    border-color: #27a82e;
+}
+
+.profile_panel_title {
+    border-bottom-color: #27a82e;
+}
+
+
+.profile_panel_logout button {
+    background-color: #27a82e;
+}
+
+
+
+.new_category_panel {
+    background-color: rgb(20, 21, 25);
+    border-color: #27a82e;
+}
+
+.new_category_title {
+    border-bottom-color: #27a82e;
+    font-size: 20px;
+}
+
+
+.new_category_panel button {
+    background-color: #27a82e;
+}
+
+
+.left_menu {
+
+    border-right-color: #27a82e;
+    border-top-color: #27a82e;
+    border-bottom-color: #27a82e;
+}
+
+
+.icon_btn:hover {
+    background-color: rgb(20, 21, 25);
+}
+
+.link {
+    color: #27a82e;
+}
+
+.link:visited {
+    color: #27a82e;
+}
+
+
+
+.menu_item:hover {
+    background-color: rgb(20, 21, 25);
+}
+
+.active {
+    background-color: rgb(25, 26, 31);
+}
+
+.active:hover {
+    background-color: rgb(25, 26, 31);
+}
+
+.submitButton {
+    background-color: #27a82e;
+}
+
+
+
+#main_title {
+    color: #27a82e;
+}
+
+.word_button {
+
+
+    border-top-color: #27a82e;
+    border-left-color: #27a82e;
+}
+
+
+
+.word_button:hover {
+    background-color: rgb(25, 26, 31);
+}
+
+
+.word_cont_no_padding {
+    border-color: #27a82e;
+
+
+}
+
+
+
+.transcription {
+    color: rgb(200, 200, 200);
+}
+
+
+
+
+.example {
+
+
+
+
+    color: #e0e0e0;
+}
+
+.ex_title {
+    color: #27a82e;
+}
+
+
+
+
+.category_cont_no_padding {
+    border-color: #27a82e;
+
+
+
+}
+
+.part_title {
+    color: #27a82e;
+}
+
+
+.known::before {
+    background-color: #F7C815;
+}
+
+.learning::before {
+    background-color: #27a82e;
+}
+
+.learned::before {
+    background-color: #3498db;
+}
+
+.problematic::before {
+    background-color: #c10000;
+}
+
+.new::before {
+    background-color: rgb(200, 200, 200);
+}
+
+
+.home_panel {
+    border-color: #27a82e;
+
+}
+
+.transcription {
+    color: rgb(200, 200, 200)
+}
+
+.defenition {
+    color: rgb(220, 220, 220);
+}
+
+
+.example {
+
+
+
+
+    color: #e0e0e0;
+}
+
+.ex_title {
+    color: #27a82e;
+}
+
+
+
+
+
+.transcription {
+    color: rgb(200, 200, 200)
+}
+
+
+.example {
+    color: #e0e0e0;
+}
+
+.ex_title {
+    color: #27a82e;
+}
+
+.sign_cont {
+    border-color: #27a82e;
+}
+
+
+.server_error {
+    background-color: rgba(255, 0, 0, 0.5);
+
+}
+
+
+
+
+
+
+.transcription {
+    color: rgb(200, 200, 200)
+}
+
+
+.example {
+    color: #e0e0e0;
+}
+
+.ex_title {
+    color: #27a82e;
+}
+
+
+.stats_cont {
+    border-color: #27a82e;
+
+
+}
+
+
+
+.part_title {
+    color: #27a82e;
+}
+
+
+
+.known::before {
+    background-color: #F7C815;
+}
+
+.learning::before {
+    background-color: #27a82e;
+}
+
+.learned::before {
+    background-color: #3498db;
+}
+
+.problematic::before {
+    background-color: #c10000;
+}
+
+
+
+
+
+.part_title {
+    color: #27a82e;
+}
+
+
+.active_checkbox {
+    background-color: #f0f0f0;
+    /* border: 1px solid #fff; Рамка */
+}
+
+.active_checkbox:checked {
+    background-color: #27a82e;
+}
+
+
+.gray_warning{
+    color: #888888;
+}

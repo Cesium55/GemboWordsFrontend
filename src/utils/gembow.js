@@ -17,8 +17,16 @@ const do_action_with_word = async (url, id) => {
     });
 
     if (!response.ok) {
-        console.log("request error")
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        if (response.status==429){
+            const errorData = await response.json();
+            return {
+                is_error: true,
+                detail: errorData.detail
+            }
+        }
+        else{
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
     }
 
     const data = await response.json();

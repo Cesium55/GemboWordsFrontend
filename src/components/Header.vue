@@ -7,10 +7,13 @@ import { whoami } from '@/utils/whoami';
 import Cookies from 'js-cookie';
 import { useRouter } from 'vue-router';
 
+import { toggle_theme } from '@/utils/theme_manager';
+import { LocalizationManager } from '@/utils/localization_manager';
+
 const router = useRouter();
 
 
-
+const theme = localStorage.getItem('theme') || 'light';
 const isOpen = ref(false);
 
 const user = ref(false)
@@ -82,14 +85,14 @@ onMounted(async () => {
 
             <div class="header_management">
                 <div class="management_item">
-                    <button class="nav-button">
-                        <img class="management_icon" src="@/assets/icons/dark/lang.svg" alt="Icon" />
+                    <button class="nav-button" @click="LocalizationManager.toggle_lang()">
+                        <img class="management_icon" :src="'/icons/' + theme +'/lang.svg'" alt="Icon" />
                     </button>
                 </div>
 
                 <div class="management_item">
-                    <button class="nav-button">
-                        <img class="management_icon" src="@/assets/icons/dark/theme.svg" alt="Icon" />
+                    <button class="nav-button" @click="toggle_theme()">
+                        <img class="management_icon" :src="'/icons/' + theme +'/theme.svg'" alt="Icon" />
                     </button>
                 </div>
 
@@ -97,11 +100,11 @@ onMounted(async () => {
 
 
                     <button class="nav-button" @click="() => toggleDropdown()">
-                        <img class="management_icon" src="@/assets/icons/dark/profile.svg" alt="Icon" />
+                        <img class="management_icon" :src="'/icons/' + theme +'/profile.svg'" alt="Icon" />
                     </button>
                     <div class="profile_panel" v-if="isOpen && user">
                         <div class="profile_panel_title">
-                            Profile
+                            {{ LocalizationManager.get_string("profile_popup_title") }}
                         </div>
                         <div class="profile_panel_line">
                             {{ user.email || 1 }}
@@ -109,24 +112,24 @@ onMounted(async () => {
 
                         <div class="profile_panel_logout">
                             <button @click="logout">
-                                Log out
+                                {{ LocalizationManager.get_string("logout") }}
                             </button>
                         </div>
                     </div>
                     <div class="profile_panel" v-if="isOpen && !user">
                         <div class="profile_panel_title">
-                            You are not logged in
+                            {{ LocalizationManager.get_string("profile_unauth") }}
                         </div>
                         
 
                         <div class="profile_panel_logout">
                             <button @click="router.push('/login');isOpen=false">
-                                Login
+                                {{ LocalizationManager.get_string("login_btn") }}
                             </button>
                         </div>
                         <div class="profile_panel_logout">
                             <button @click="router.push('/register');isOpen=false">
-                                Register
+                                {{ LocalizationManager.get_string("reg_btn") }}
                             </button>
                         </div>
                     </div>
@@ -143,99 +146,5 @@ onMounted(async () => {
 
 
 <style scoped>
-.header {
-    height: 10vh;
-    border-bottom: 1px #27a82e solid;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
 
-.header_cont {
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.header_management {
-    display: flex;
-    margin-right: 100px;
-
-    justify-content: center;
-    align-items: center;
-}
-
-.management_item {
-    margin-left: 30px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    padding: 5px;
-
-    border-radius: 100%;
-
-    height: 100%;
-
-    aspect-ratio: 1 / 1;
-}
-
-.management_item:hover {
-    background-color: rgb(20, 21, 25);
-}
-
-.management_icon {
-    width: 100%;
-    height: 100%;
-}
-
-.nav-button {
-    border: none;
-    background-color: inherit;
-    width: 100%;
-    height: 100%;
-    border-radius: 100%;
-}
-
-.profile_panel {
-    position: fixed;
-    /* Элемент с фиксированным позиционированием */
-    top: 80px;
-    /* Отступ от верхней границы окна браузера */
-    /* right: 20px; */
-    /* Отступ от правой границы окна браузера */
-    background-color: rgb(20, 21, 25);
-    border: 1px #27a82e solid;
-    /* padding: 10px; */
-    border-radius: 10px;
-}
-
-.profile_panel_title {
-    text-align: center;
-    padding: 10px;
-    border-bottom: 1px #27a82e solid;
-}
-
-.profile_panel_line {
-    text-align: center;
-    padding: 10px;
-    /* border-bottom: 1px #27a82e solid; */
-}
-
-.profile_panel_logout {
-    display: flex;
-    justify-content: space-around;
-    padding: 10px;
-}
-
-.profile_panel_logout button {
-    background-color: #27a82e;
-    color: white;
-    border: none;
-    border-radius: 100px;
-    font-size: 20px;
-    padding: 5px 10px;
-}
 </style>

@@ -13,16 +13,7 @@ import Link from './Link.vue';
 
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
 
-#main_title{
-    font-family: "Lilita One", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    user-select: none;
-    font-size: 40px;
-    color: #27a82e;
-}
 
 
 </style>

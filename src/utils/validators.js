@@ -1,3 +1,5 @@
+import { LocalizationManager } from "./localization_manager"
+
 class ValidationManager {
     constructor() {
         this.validations = []
@@ -73,12 +75,12 @@ class FieldValidator {
 
     static min_length(ml, str) {
         // console.log("ml: " + ml + " str: '" + str + "'")
-        if (str.length < ml) return "Length must be at least " + ml + " characters."
+        if (str.length < ml) return LocalizationManager.get_string("invalid_pass_length_min") + ml
     }
 
     static max_length(ml, str) {
         // console.log("ml: " + ml + " str: '" + str + "'")
-        if (str.length > ml) return "Length must be maximum " + ml + " characters."
+        if (str.length > ml) return LocalizationManager.get_string("invalid_pass_length_max") + ml
     }
 
     static isValidEmail(email) {
@@ -88,11 +90,11 @@ class FieldValidator {
         // Проверяем строку с использованием регулярного выражения
         const isEmail = emailRegex.test(email);
 
-        if (!isEmail) return "You must enter valid email"
+        if (!isEmail) return LocalizationManager.get_string("invalid_email")
     }
 
     static equalPassword(original_reference, second_value){
-        if (original_reference.value != second_value) return "Passwords are not equal"
+        if (original_reference.value != second_value) return LocalizationManager.get_string("invalid_pass_equal")
     }
 
 }

@@ -6,6 +6,7 @@ import { FieldValidator } from "@/utils/validators"
 import Link from "@/components/Link.vue"
 import { useAuth } from "@/utils/login";
 import { useRouter } from "vue-router";
+import { LocalizationManager } from "@/utils/localization_manager";
 
 const { login, isLoading, error } = useAuth();
 
@@ -65,12 +66,12 @@ const handleLogin = async () => {
 
 
 </script>
-
+ 
 <template>
 
   <div class="out_center_cont">
     <div class="sign_cont">
-      <h1 class="form_title">Sign in</h1>
+      <h1 class="form_title">{{ LocalizationManager.get_string("login_title") }}</h1>
       <div class="server_error" v-if="server_error">
         {{ server_error }}
       </div>
@@ -78,21 +79,21 @@ const handleLogin = async () => {
         <form action="" method="get" @submit.prevent="handleLogin">
 
           <FormLine ident="email" type="email" :error=email_error @update="(v) => { email = v; email_validator.hide() }"
-            @blur="() => email_validator.validate()">Email
+            @blur="() => email_validator.validate()">{{ LocalizationManager.get_string("Email") }}
           </FormLine>
 
           <FormLine ident="password" type="password" :error=password_error @blur="() => password_validator.validate()"
-            @update="(v) => { password = v; password_validator.hide() }">Password
+            @update="(v) => { password = v; password_validator.hide() }">{{ LocalizationManager.get_string("Pswd") }}
           </FormLine>
 
           <div class="form_element">
             <SubmitButton>
-              Log in
+              {{ LocalizationManager.get_string("login_btn") }}
             </SubmitButton>
           </div>
           <p>
-            Do not have an account yet? You can sign up <span>
-              <Link to="register">here</Link>
+            {{ LocalizationManager.get_string("login_reg_ref") }} <span>
+              <Link to="register">{{ LocalizationManager.get_string("here") }}</Link>
             </span>
           </p>
         </form>
@@ -103,49 +104,5 @@ const handleLogin = async () => {
 </template>
 
 <style scoped>
-.out_center_cont {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 90vh;
-}
 
-.sign_cont {
-  border: 2px #27a82e solid;
-  padding: 20px 50px;
-  border-radius: 10px;
-  min-width: 25vh;
-}
-
-
-.server_error{
-  /* display: flex; */
-  text-align: center;
-  border: red 1px solid;
-  color: white;
-  background-color: rgba(255, 0, 0, 0.5);
-
-  margin-bottom: 10px;
-  padding-top: 10px;
-  padding: 5px;
-}
-
-.form_title {
-  text-align: center;
-}
-
-.form_element {
-  margin-bottom: 2vh;
-  display: flex;
-  justify-content: space-between;
-
-}
-
-.form_label {
-  margin-right: 2px;
-}
-
-.error_view {
-  color: red;
-}
 </style>

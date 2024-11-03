@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 import WordButton from './WordButton.vue';
 
+import { LocalizationManager } from '@/utils/localization_manager';
+
 const props = defineProps({
     learn: Boolean,
     known: Boolean,
@@ -49,25 +51,24 @@ const button_count_class_name = { 1: "uno", 2: "dos", 3: "tres", 4: "quatro" }[b
     <div class="word_buttons">
 
         <WordButton @click="$emit('known_clicked')"
-            :button_count_class_name="button_count_class_name + ' lb'" v-if="known">I know this word <br> [←]
+            :button_count_class_name="button_count_class_name + ' lb'" v-if="known">{{ LocalizationManager.get_string("word_know") }}<br> [←]
         </WordButton>
 
         <WordButton @click="$emit('remember_clicked')"
-            :button_count_class_name="button_count_class_name + ' lb'" v-if="remember">I remember<br>[←]</WordButton>
+            :button_count_class_name="button_count_class_name + ' lb'" v-if="remember">{{ LocalizationManager.get_string("word_remember") }}<br>[←]</WordButton>
 
         <WordButton @click="$emit('example_clicked')"
-            :button_count_class_name="button_count_class_name" v-if="example">Show word in context <br>[↓]</WordButton>
+            :button_count_class_name="button_count_class_name" v-if="example">{{ LocalizationManager.get_string("word_context") }} <br>[↓]</WordButton>
 
         <WordButton @click="$emit('show_clicked')"
-            :button_count_class_name="button_count_class_name" v-if="show">Show
-            translation<br> [↑]</WordButton>
+            :button_count_class_name="button_count_class_name" v-if="show">{{ LocalizationManager.get_string("word_translate") }}<br> [↑]</WordButton>
 
         <WordButton @click="$emit('repeat_clicked')"
-            :button_count_class_name="button_count_class_name + ' rb'" v-if="repeat">I don't remember<br>[→]
+            :button_count_class_name="button_count_class_name + ' rb'" v-if="repeat">{{ LocalizationManager.get_string("word_no_remember") }}<br>[→]
         </WordButton>
 
         <WordButton @click="$emit('learn_clicked')"
-            :button_count_class_name="button_count_class_name + ' rb'" v-if="learn">Start learning word <br>[→]
+            :button_count_class_name="button_count_class_name + ' rb'" v-if="learn">{{ LocalizationManager.get_string("word_learn") }} <br>[→]
         </WordButton>
 
 
@@ -78,16 +79,5 @@ const button_count_class_name = { 1: "uno", 2: "dos", 3: "tres", 4: "quatro" }[b
 
 
 <style scoped>
-.word_buttons {
 
-
-    display: flex;
-    /* justify-content: center;
-    align-items: center; */
-
-
-    border-bottom-left-radius: inherit;
-    border-bottom-right-radius: inherit;
-
-}
 </style>

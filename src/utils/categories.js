@@ -21,4 +21,102 @@ const get_categories = async () => {
     return data; // Возвращаем данные
 };
 
-export { get_categories }
+
+const create_category = async (name) => {
+    const response = await fetch(protocol + ip + prefix + "gembow/create_category", {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify({ "name": name })
+    });
+
+
+
+    if (!response.ok) {
+        if (response.status==429){
+            const errorData = await response.json();
+            return {
+                is_error: true,
+                detail: errorData.detail
+            }
+        }
+        else{
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+    }
+
+    const data = await response.json();
+    console.log(data);
+    window.location.reload(true)
+    return data;
+};
+
+
+
+const add_word = async (word) => {
+    const response = await fetch(protocol + ip + prefix + "gembow/add_word", {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(word)
+    });
+
+
+
+    if (!response.ok) {
+        if (response.status==429){
+            const errorData = await response.json();
+            return {
+                is_error: true,
+                detail: errorData.detail
+            }
+        }
+        else{
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+    }
+
+    const data = await response.json();
+    console.log(data);
+    window.location.href = "/category/" + word.category_id
+    return data;
+};
+
+
+
+const delete_word = async (id) => {
+    const response = await fetch(protocol + ip + prefix + "gembow/word", {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify({"id": id})
+    });
+
+
+
+    if (!response.ok) {
+        if (response.status==429){
+            const errorData = await response.json();
+            return {
+                is_error: true,
+                detail: errorData.detail
+            }
+        }
+        else{
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+    }
+
+    const data = await response.json();
+    console.log(data);
+    window.location.reload()
+    return data;
+};
+
+export { get_categories, create_category, add_word, delete_word }

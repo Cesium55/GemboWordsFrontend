@@ -3,12 +3,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 html {
-  background-color: var(--my_gray);
+  
 
   font-family: "Ubuntu", sans-serif;
   font-weight: 400;
   font-style: normal;
-  color: white;
+  
   margin: 0;
   padding: 0;
 }
@@ -67,14 +67,7 @@ body {
   font-style: italic;
 }
 
-.learn_screen {
 
-  height: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .mygreen{
   color: #27a82e;

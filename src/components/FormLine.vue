@@ -29,25 +29,4 @@ const emit = defineEmits(["update"])
 <style scoped>
 
 
-.form_line{
-    margin-bottom: 2vh;
-}
-
-.form_element {
-  
-  display: flex;
-  justify-content: space-between;
-  /* width: 300px; */
-
-}
-
-.form_label {
-  margin-right: 2px;
-}
-
-.error_view {
-  color: red;
-  height: 20px;
-}
-
 </style>

@@ -99,7 +99,7 @@ const next_word = async () => {
                         No words to repeat
                     </div>
 
-                    <div class="warning_line" v-if="time_until_repeat">
+                    <div class="warning_line" v-if="time_until_repeat && time_until_repeat>=0">
                         Time until next repeat: {{ time_until_repeat }} min
                     </div>
 
@@ -117,108 +117,5 @@ const next_word = async () => {
 
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
 
-.learn_screen {
-
-    height: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.word_cont_no_padding {
-    width: 800px;
-    min-height: 400px;
-    max-height: 600px;
-    border: 1px #27a82e solid;
-    border-radius: 20px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-}
-
-.word_cont {
-    padding: 20px;
-    height: 100%
-}
-
-.word_titles {
-    display: flex;
-    justify-content: space-between;
-
-    padding-top: 20px;
-    padding-left: 50px;
-    padding-right: 50px;
-}
-
-/* .title_cont {
-    margin-top: 20px;
-} */
-
-/* .left_title_cont {
-    margin-left: 50px;
-}
-
-.right_title_cont {
-    margin-right: 50px;
-} */
-
-.word_title {
-    font-size: 30px;
-}
-
-.transcription {
-    margin-top: 20px;
-    color: rgb(200, 200, 200)
-}
-
-.example_titles {
-    display: flex;
-    justify-content: space-between;
-    padding-right: 50px;
-    padding-left: 50px;
-    margin-top: 20px;
-}
-
-.examples {
-    display: flex;
-    justify-content: space-between;
-    padding-right: 50px;
-    padding-left: 50px;
-
-    max-height: 300px;
-    overflow: auto;
-
-}
-
-.example_list_cont {
-    width: 50%;
-}
-
-.example {
-    padding-left: 10px;
-    font-size: 20px;
-    margin-top: 19px;
-    color: #e0e0e0;
-    overflow: auto;
-}
-
-.ex_title {
-    font-size: 25px;
-    color: #27a82e;
-    width: 50%;
-}
-
-.warning_cont {
-    padding: 30px;
-}
-
-.warning_line {
-    font-size: 25px;
-    margin-bottom: 20px;
-}
 </style>
